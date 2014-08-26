@@ -1,0 +1,24 @@
+# Plot the yearly emissions.
+png('plot2.png')
+
+plot(yearly_emissions$Year, yearly_emissions$Emissions,
+     main='Total emission per year in Baltimore',
+     xlab='Year',
+     ylab='Total Emissions (tons)',
+     type='b',
+     xaxt='n')
+
+axis(side=1, at=c(1999,2002,2005,2008))
+
+dev.off()
+
+
+# Plot the emissions per year and show separate plot for each type.
+qplot(Year, Emissions, data=yearly_emissions, 
+      main='Total emissions in Baltimore City',
+      geom='line') + 
+    facet_grid(Type~., scales='free_y') +
+    scale_x_continuous(breaks=c(1999,2002,2005,2008))
+
+# Save the plot to a png file with 480x480 px size. 
+ggsave(filename='plot3.png', dpi=120, width=4, height=4)
